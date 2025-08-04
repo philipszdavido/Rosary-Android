@@ -1,7 +1,6 @@
 package com.chidumennamdi.rosary;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,38 +16,38 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class PrayerMainActivity extends AppCompatActivity {
 
+    Fragment prayersFragment = new PrayersFragment();
+    Fragment addPrayerFragment = new AddPrayerFragment();
+    Fragment settingsFragment = new SettingsFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_prayer_main);
 
-        Fragment prayersFragment = new PrayersFragment();
-        Fragment addPrayerFragment = new AddPrayerFragment();
-        Fragment settingsFragment = new SettingsFragment();
-
-        setCurrentFragment(prayersFragment);
         BottomNavigationView bottomNavigationItemView = findViewById(R.id.bottom_nav);
 
-        bottomNavigationItemView.setOnNavigationItemSelectedListener(item -> {
-            System.out.println("Hello");
-            System.out.println(item.getItemId());
+        bottomNavigationItemView.setOnItemSelectedListener(item -> {
 
-            switch (item.getItemId()) {
-                case 2131231237:
-                    setCurrentFragment(prayersFragment);
-                    break;
-                case 2131231236:
-                    setCurrentFragment(addPrayerFragment);
-                    break;
-                case 2131231238:
-                    setCurrentFragment(settingsFragment);
-                    break;
+            int id = item.getItemId();
+
+            if (id == R.id.menu_prayers) {
+                setCurrentFragment(prayersFragment);
+                return true;
+            } else if (id == R.id.menu_add_prayer) {
+                setCurrentFragment(addPrayerFragment);
+                return true;
+            } else if (id == R.id.menu_settings) {
+                setCurrentFragment(settingsFragment);
+                return true;
+            } else {
+                return false;
             }
 
-            return true;
-
         });
+
+        setCurrentFragment(prayersFragment);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

@@ -1,6 +1,7 @@
 package com.chidumennamdi.rosary.screens;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,6 +134,24 @@ public class PrayersFragment extends Fragment {
                 if (view == null) {
                     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
                     view = inflater.inflate(R.layout.prayer_list_item, parent, false);
+
+                    Prayer prayer = PrayerData.allPrayers[position];
+
+                    Log.d("PrayerDebug", "Sending prayer: " + prayer.title + " | " + prayer.content);
+
+                    TextView title = view.findViewById(R.id.prayer_title);
+                    title.setText(prayer.title);
+
+                    TextView subtitle = view.findViewById(R.id.prayer_subtitle);
+                    subtitle.setText("A prayer");
+
+                    view.setOnClickListener(item -> {
+                        Intent intent = new Intent(context, SinglePrayerActivity.class);
+                        intent.putExtra("prayer", prayer);
+
+                        startActivity(intent);
+                    });
+
                 }
                 return view;
             }
