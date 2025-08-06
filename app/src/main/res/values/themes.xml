@@ -11,4 +11,10 @@
     <style name="Theme.Rosary.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Rosary.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- themes.xml -->
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Common styling -->
+    </style>
+
 </resources>

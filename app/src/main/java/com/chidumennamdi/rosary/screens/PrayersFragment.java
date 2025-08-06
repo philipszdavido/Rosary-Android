@@ -102,7 +102,7 @@ public class PrayersFragment extends Fragment {
 
         LinearLayout hori_button_container = view.findViewById(R.id.hori_button_container);
 
-        for(Prayer prayer : PrayerData.allPrayers) {
+        for(Prayer prayer : PrayerData.quickPrayers) {
 
             View newButton = constructQuickPrayerView(context, prayer);
             hori_button_container.addView(newButton);
@@ -146,10 +146,7 @@ public class PrayersFragment extends Fragment {
                     subtitle.setText("A prayer");
 
                     view.setOnClickListener(item -> {
-                        Intent intent = new Intent(context, SinglePrayerActivity.class);
-                        intent.putExtra("prayer", prayer);
-
-                        startActivity(intent);
+                        startSinglePrayer(prayer);
                     });
 
                 }
@@ -183,10 +180,19 @@ public class PrayersFragment extends Fragment {
         int dp = Utils.dp(20, context);
         newButton.setPadding(dp, dp, dp, dp);
         newButton.setOnClickListener(item -> {
-            System.out.println(item);
+            startSinglePrayer(prayer);
         });
 
         return newButton;
+
+    }
+
+    void startSinglePrayer(Prayer prayer) {
+
+        Intent intent = new Intent(requireContext(), SinglePrayerActivity.class);
+        intent.putExtra("prayer", prayer);
+
+        startActivity(intent);
 
     }
 }
